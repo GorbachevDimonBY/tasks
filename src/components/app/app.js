@@ -1,64 +1,42 @@
 import React from 'react';
-import InputUp from '../input-up/input-up';
-import Button from '../button/button';
-import Result from '../result/result';
-import InputDown from '../input-down/input-down';
+import InputButton from '../input-button';
+import Result from '../result';
 
 export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            inputUpValue: '',
-            inputDownValue: '',
-            visible: '',
-            visibleDown: false,
-            visibleResult: true
+            resultValue: '',
+            visible: true
         }
-    }
+    } 
 
-    changeValue = (text) => {
+    changeResultValue = (text) => {
         this.setState({
-            inputUpValue: text
+            resultValue: text,
+            visible: true
         });
     }
 
-    changeValueDown = (text) => {
+    changeVisible = () => {
         this.setState({
-            inputDownValue: text
-        });
-    }
-
-    visibleInput = () => {
-        this.setState({
-            visible: this.state.inputUpValue,
-            visibleResult: true,
-            visibleDown: false
-        });
-    }
-
-    visibleDownInput = () => {
-        this.setState({
-            visibleDown: true,
-            visibleResult: false,
-            inputDownValue: this.state.visible
-        });
-    }
-
-    visibleDownResult = () => {
-        this.setState({
-            visibleDown: false,
-            visibleResult: true,
-            visible: this.state.inputDownValue
+            visible: false
         });
     }
 
     render() {
+        const { resultValue } = this.state;
         return (
             <div>
-                <InputUp onChange={this.changeValue} /> 
-                <Button onClick={this.visibleInput} />
-                {this.state.visibleResult ? <Result visibleValue={this.state.visible} onClick={this.visibleDownInput}/> : null}
-                {this.state.visibleDown ? <InputDown onChange={this.changeValueDown} onClick={this.visibleDownResult} visibleValue={this.state.visible}/> : null}
+                <InputButton onClick={this.changeResultValue} 
+                             resultValue={this.state.resultValue}
+                             clazz='column'
+                />
+                <Result visible={this.state.visible} 
+                        resultValue={resultValue} 
+                        onClick={this.changeResultValue} 
+                        falseVisible={this.changeVisible}
+                />
             </div>
         )
     }
