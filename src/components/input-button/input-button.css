@@ -1,0 +1,8 @@
+#box {
+    display: flex;
+    width: 150px;
+}
+
+.column {
+    flex-direction: column;
+}
