@@ -1,41 +1,43 @@
 import React from 'react';
 import InputButton from '../input-button';
 import Result from '../result';
+import 'gismart-ui/core/style.css';
+
 
 export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            resultValue: '',
-            visible: true
+            initialValue: '',
+            showText: true
         }
     } 
 
     changeResultValue = (text) => {
         this.setState({
-            resultValue: text,
-            visible: true
+            initialValue: text,
+            showText: true
         });
     }
 
-    changeVisible = () => {
+    changeVisibility = () => {
         this.setState({
-            visible: false
+            showText: false
         });
     }
 
     render() {
-        const { resultValue } = this.state;
+        const { initialValue, showText } = this.state;
         return (
             <div>
                 <InputButton onClick={this.changeResultValue} 
-                             resultValue={this.state.resultValue}
-                             clazz='column'
+                             initialValue={initialValue}
+                             direction='column'
                 />
-                <Result visible={this.state.visible} 
-                        resultValue={resultValue} 
+                <Result showText={showText} 
+                        initialValue={initialValue} 
                         onClick={this.changeResultValue} 
-                        falseVisible={this.changeVisible}
+                        changeVisibility={this.changeVisibility}
                 />
             </div>
         )
